@@ -130,6 +130,8 @@ function EventDetails() {
 }
 
 //=====Trying out the Guest List stuff=====
+
+//This takes the selected event id and returns an array of names
 function rsvpsForEvent(id) {
   const rsvpList = rsvps.filter((reservation) => {
     return reservation.eventId === id;
@@ -147,13 +149,26 @@ function rsvpsForEvent(id) {
   return guestNames;
 }
 
-// function getRsvpGuestID(rsvpsForEvent) {
-//   const guestsThatAreRsvpID = rsvpsForEvent(selectedEvent.id).map((guest) => {
-//     return rsvpList.guestID;
-//   });
-// }
+//This takes one name and turns it into an li
+function GuestListItem(name) {
+  const $li = document.createElement("li");
+  $li.textContent = `${name} 
+  `;
+  return $li;
+}
 
-//==========Rander==========
+function GuestList() {
+  const $ul = document.createElement("ul");
+
+  const GuestListNames = rsvpsForEvent(selectedEvent.id).map((name) =>
+    GuestListItem(name),
+  );
+  $ul.replaceChildren(...GuestListNames);
+
+  return $ul;
+}
+
+//==========Render==========
 function render() {
   const $app = document.querySelector("#app");
   $app.innerHTML = `
@@ -173,6 +188,7 @@ function render() {
 
   $app.querySelector("EventList").replaceWith(EventList());
   $app.querySelector("EventDetails").replaceWith(EventDetails());
+  $app.querySelector("GuestList").replaceWith(GuestList());
 }
 
 async function init() {
