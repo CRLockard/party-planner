@@ -87,6 +87,7 @@ async function getRsvp(id) {
   }
 }
 
+//=====components=====
 /** Event name that shows more details about the event when clicked */
 function EventListItem(event) {
   const $li = document.createElement("li");
