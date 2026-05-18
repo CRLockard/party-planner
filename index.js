@@ -129,6 +129,30 @@ function EventDetails() {
   return $event;
 }
 
+//=====Trying out the Guest List stuff=====
+function rsvpsForEvent(id) {
+  const rsvpList = rsvps.filter((reservation) => {
+    return reservation.eventId === id;
+  });
+  const guestsThatAreRsvpID = rsvpList.map((guest) => {
+    return guest.guestId;
+  });
+  let guestNames = [];
+  for (let i = 0; i < guestsThatAreRsvpID.length; i++) {
+    for (let j = 0; j < guests.length; j++)
+      if (guestsThatAreRsvpID[i] === guests[j].id) {
+        guestNames.push(guests[j].name);
+      }
+  }
+  return guestNames;
+}
+
+// function getRsvpGuestID(rsvpsForEvent) {
+//   const guestsThatAreRsvpID = rsvpsForEvent(selectedEvent.id).map((guest) => {
+//     return rsvpList.guestID;
+//   });
+// }
+
 //==========Rander==========
 function render() {
   const $app = document.querySelector("#app");
@@ -142,6 +166,7 @@ function render() {
     <section id="selected">
         <h2>Event Details</h2>
         <EventDetails></EventDetails>
+        <GuestList><GuestList>
     </section>
 </main>
     `;
@@ -152,6 +177,8 @@ function render() {
 
 async function init() {
   await getEvents();
+  await getGuests();
+  await getRsvps();
   render();
 }
 
