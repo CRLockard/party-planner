@@ -132,6 +132,10 @@ function EventDetails() {
 //=====Trying out the Guest List stuff=====
 
 //This takes the selected event id and returns an array of names
+//It looks through the reservations for one with the same id as the event
+//it then builds new array pulling out just the guest ids
+//it then takes those ID and looks through the master guest list
+//And pulls out the name associated with that ID and return an array of names.
 function rsvpsForEvent(id) {
   const rsvpList = rsvps.filter((reservation) => {
     return reservation.eventId === id;
@@ -156,7 +160,7 @@ function GuestListItem(name) {
   `;
   return $li;
 }
-
+//This creates my UL and adds the Lis to it.
 function GuestList() {
   const $ul = document.createElement("ul");
 
